@@ -10,8 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
-    @IBOutlet weak var display: UITextField!
+    @IBOutlet weak var display: UILabel!
     
     var calculatorBrain = CalculatorBrain()
     var inTheMiddleOfTypingANumber = false
@@ -45,11 +44,13 @@ class ViewController: UIViewController {
     
     var displayText:Double {
         set{
+            println("\(newValue)")
             display.text = "\(newValue)"
             inTheMiddleOfTypingANumber = false
         }
         get{
-            return NSNumberFormatter().numberFromString(display.text)!.doubleValue
+            println("current display value \(display.text!)")
+            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
         }
     }
 }
