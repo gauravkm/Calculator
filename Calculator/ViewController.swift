@@ -17,15 +17,40 @@ class ViewController: UIViewController {
     var inTheMiddleOfTypingANumber = false
     
     @IBAction func numberClick(sender: UIButton) {
-        
+        if inTheMiddleOfTypingANumber{
+            display.text = display.text!+sender.currentTitle!
+        }
+        else{
+            display.text = sender.currentTitle!
+            inTheMiddleOfTypingANumber = true
+        }
     }
     
     
     @IBAction func returnClick() {
+        inTheMiddleOfTypingANumber = false
+        calculatorBrain.pushOperand(displayText)
     }
     
     @IBAction func performOperation(sender: UIButton) {
+        returnClick()
+        calculatorBrain.performOperation(sender.currentTitle!)
+        if let result = calculatorBrain.evaluate(){
+            displayText = result
+        }
+        else{
+            displayText = 0
+        }
     }
     
+    var displayText:Double {
+        set{
+            display.text = "\(newValue)"
+            inTheMiddleOfTypingANumber = false
+        }
+        get{
+            return NSNumberFormatter().numberFromString(display.text)!.doubleValue
+        }
+    }
 }
 
