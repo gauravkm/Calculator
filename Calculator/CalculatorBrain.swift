@@ -26,6 +26,7 @@ class CalculatorBrain{
     }
     
     func performOperation(operation:String){
+        println("operation \(operation)")
         switch operation{
             case "➕":
                 opStack.append(Op.BinaryOperator("➕", +))
@@ -43,9 +44,10 @@ class CalculatorBrain{
     }
     
     func evaluate(stack:[Op]) -> (result: Double?, remainingStack:[Op]){
+        println("opStack \(stack)")
         if(stack.count>0){
             var lstack = stack
-            if let op = lstack.last{
+                let op = lstack.removeLast()
                 switch op{
                 case .Operand(let operand):
                     return (operand, lstack)
@@ -64,8 +66,6 @@ class CalculatorBrain{
                         return (operation(op1), op1Evaluation.remainingStack)
                     }
                 }
-                
-            }
         }
         return (nil, stack)
     }
